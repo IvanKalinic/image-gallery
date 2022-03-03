@@ -5,6 +5,7 @@ import App from "./App";
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import styled from "styled-components";
+import { UserProvider } from "./context";
 
 const queryClient = new QueryClient();
 
@@ -14,13 +15,15 @@ const AppContainer = styled.div`
 
 ReactDOM.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <AppContainer>
-        <ChakraProvider>
-          <App />
-        </ChakraProvider>
-      </AppContainer>
-    </QueryClientProvider>
+    <UserProvider>
+      <QueryClientProvider client={queryClient}>
+        <AppContainer>
+          <ChakraProvider>
+            <App />
+          </ChakraProvider>
+        </AppContainer>
+      </QueryClientProvider>
+    </UserProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

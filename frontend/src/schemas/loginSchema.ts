@@ -1,0 +1,9 @@
+import * as z from "zod";
+
+export const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, "E-mail address is required")
+    .email("Invalid email address"),
+  password: z.string().min(5, "Password must contain at least 5 characters"),
+});
