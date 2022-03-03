@@ -1,11 +1,15 @@
 import styled from "styled-components";
-import { navbarColor } from "../global_styles";
+import { navbarColor, loginColors } from "../global_styles";
 
 export const FixedNavbarWrapper = styled.div`
   position: fixed;
   top: 0;
   height: 5.25rem;
+  width: 100vw;
   background-color: ${navbarColor};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const LoginNavbarWrapper = styled.div`
@@ -39,4 +43,15 @@ export const UniversalWrapper = styled.section`
     color: hsl(209, 34%, 30%);
     margin-bottom: 1.5rem;
   }
+`;
+
+export const SearchWrapper = styled.input`
+  border: 1px solid #a0aec0;
+  width: 23.125rem;
+  height: 3rem;
+  color: ${loginColors};
+  margin-top: 2rem;
+  outline: none;
+  display: flex;
+  padding-left: 1rem;
 `;
