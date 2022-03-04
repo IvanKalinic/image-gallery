@@ -81,3 +81,17 @@ export const UploadBoxWrapper = styled.div`
   cursor: pointer;
   margin-right: 5rem;
 `;
+
+export const UploadIcon = styled.span`
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  border-radius: 50%;
+  z-index: 102;
+  border: 0.125rem solid black;
+  width: 2rem;
+  height: 2rem;
+  &:hover {
+    border: 0.125rem solid #8c3103;
+  }
+`;
