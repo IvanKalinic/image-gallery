@@ -1,7 +1,25 @@
+import { EditIcon } from "@chakra-ui/icons";
 import { Flex, Image, Text } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { PostData } from "../../../types";
+import NewPost from "../NewPost";
 
-const PostDetails = ({ openedPost }: { openedPost: PostData }) => {
+interface Props {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  openedPost: PostData;
+}
+const PostDetails = ({ isOpen, setIsOpen, openedPost }: Props) => {
+  const handleEdit = () => {
+    //logic for editing post
+  };
+
+  useEffect(() => {
+    //openePost = posts[0]
+  }, []);
+
+  //
+
   return (
     <Flex
       flexDirection="column"
@@ -11,17 +29,32 @@ const PostDetails = ({ openedPost }: { openedPost: PostData }) => {
       top="9rem"
       right="7rem"
     >
-      <Image
-        width="60rem"
-        height="30rem"
-        mr="1rem"
-        ml="1rem"
-        objectFit="cover"
-        src={`${process.env.REACT_APP_BACKEND_PUBLIC_FOLDER}/${openedPost.img}`}
-      />
-      <Text fontSize="2rem" fontWeight="700" mt="2rem">
-        {openedPost.description}
-      </Text>
+      {!isOpen ? (
+        <>
+          <EditIcon
+            position="absolute"
+            top="-2rem"
+            right="-4rem"
+            w="2rem"
+            h="2rem"
+            cursor="pointer"
+            onClick={handleEdit}
+          />
+          <Image
+            width="60rem"
+            height="30rem"
+            mr="1rem"
+            ml="1rem"
+            objectFit="cover"
+            src={`${process.env.REACT_APP_BACKEND_PUBLIC_FOLDER}/${openedPost.img}`}
+          />
+          <Text fontSize="2rem" fontWeight="700" mt="2rem">
+            {openedPost.description}
+          </Text>
+        </>
+      ) : (
+        <NewPost isOpen={isOpen} setIsOpen={setIsOpen} />
+      )}
     </Flex>
   );
 };

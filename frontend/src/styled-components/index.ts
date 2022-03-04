@@ -65,6 +65,19 @@ export const PostContainer = styled.div`
   display: flex;
   align-items: center;
   jusitfy-content: space-around;
-  margin-bottom: 2rem;
   margin-left: 1.5rem;
+`;
+
+export const UploadBoxWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: ${({ image }: { image: any }) =>
+    !image ? "0.125rem dashed #ffffff" : "0"};
+  border-radius: 0.625rem;
+  width: 35vw;
+  height: 50vh;
+  background-color: #e5e5e5;
+  cursor: pointer;
+  margin-right: 5rem;
 `;

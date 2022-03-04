@@ -9,12 +9,13 @@ import {
   Text,
   Heading,
 } from "@chakra-ui/react";
-import { ArrowBackIcon } from "@chakra-ui/icons";
+import { AddIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import { useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import SharedList from "./SharedList";
 import PostDetails from "./PostDetails";
 import { PostData } from "../../types";
+import NewPost from "./NewPost";
 
 const defaultValues = {
   _id: "",
@@ -24,29 +25,32 @@ const defaultValues = {
 };
 
 const ImageList = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isListOpen, setIsListOpen] = useState<boolean>(true);
+  const [isNewOpen, setIsNewOpen] = useState<boolean>(true);
   const [openedPost, setOpenedPost] = useState<PostData>(defaultValues);
 
-  const onClose = () => {
-    setIsOpen(false);
+  const handleClose = () => {
+    setIsListOpen(false);
   };
 
   useEffect(() => {
-    setIsOpen(true);
+    setIsListOpen(true);
   }, []);
+
+  const handleAdd = () => {};
 
   console.log(openedPost);
   const isMobile = false;
   return (
     <>
       {isMobile ? (
-        <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+        <Drawer isOpen={isListOpen} placement="left" onClose={handleClose}>
           <DrawerContent>
             <DrawerHeader>Image Gallery</DrawerHeader>
             <ArrowBackIcon
               w="2rem"
               h="2rem"
-              onClick={onClose}
+              onClick={handleClose}
               cursor="pointer"
               position="fixed"
               right="1rem"
@@ -68,18 +72,38 @@ const ImageList = () => {
             boxShadow="0 0.25rem 0.25rem rgba(0, 0, 0, 0.25)"
             mt="5.25rem"
           >
-            <Text
-              fontWeight="700"
-              fontSize="2rem"
-              mt="2rem"
-              ml="-5rem"
-              mb="2rem"
-            >
-              Image Gallery
-            </Text>
+            <Flex alignItems="center" justifyContent="space-between">
+              <Text
+                fontWeight="700"
+                fontSize="2rem"
+                mt="2rem"
+                ml="4rem"
+                mb="4rem"
+              >
+                Image Gallery
+              </Text>
+              <Text
+                mt="-2rem"
+                mr="1rem"
+                fontWeight="700"
+                cursor="pointer"
+                textTransform="uppercase"
+                css={{ ":hover": { color: "red" } }}
+                onClick={() => setIsNewOpen(true)}
+              >
+                <AddIcon w="2rem" h="2rem" mr="0.5rem" />
+                New
+              </Text>
+            </Flex>
+
             <SharedList setOpenedPost={setOpenedPost} />
           </Flex>
-          <PostDetails openedPost={openedPost} />
+
+          <PostDetails
+            openedPost={openedPost}
+            isOpen={isNewOpen}
+            setIsOpen={setIsNewOpen}
+          />
         </Flex>
       )}
     </>

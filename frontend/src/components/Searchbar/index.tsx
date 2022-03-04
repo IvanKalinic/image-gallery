@@ -12,7 +12,7 @@ const Searchbar = ({ term, setTerm }: Props) => {
     setTerm(e.target.value);
   };
   return (
-    <Flex alignItems="center" justifyContent="center">
+    <Flex alignItems="center" justifyContent="center" mt="12rem">
       <SearchWrapper
         type="text"
         value={term}
