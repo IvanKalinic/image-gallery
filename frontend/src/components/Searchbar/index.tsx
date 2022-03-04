@@ -12,7 +12,7 @@ const Searchbar = ({ term, setTerm }: Props) => {
     setTerm(e.target.value);
   };
   return (
-    <Flex alignItems="center" justifyContent="center" mt="12rem">
+    <Flex alignItems="center" justifyContent="center" flexDirection="column">
       <SearchWrapper
         type="text"
         value={term}
@@ -20,12 +20,12 @@ const Searchbar = ({ term, setTerm }: Props) => {
         onChange={handleChange}
       />
       <Search2Icon
-        position="relative"
+        position="absolute"
         cursor="pointer"
         w="1.5rem"
         h="1.5rem"
-        ml="-3rem"
-        mt="3rem"
+        right="4rem"
+        top="3rem"
         color="#ABAFAE"
         css={{ ":hover": { color: "black" } }}
       />

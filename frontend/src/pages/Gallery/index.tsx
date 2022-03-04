@@ -1,7 +1,6 @@
 import { useUser } from "../../context";
 import { FixedNavbarWrapper } from "../../styled-components";
 import {
-  Box,
   Button,
   Flex,
   Text,
@@ -10,7 +9,6 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverBody,
   PopoverArrow,
   PopoverCloseButton,
   PopoverHeader,

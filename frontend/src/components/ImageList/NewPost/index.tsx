@@ -2,13 +2,14 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import { Flex, Text, Image, Box, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Upload } from "../../../assets/svg";
-import { usePosts } from "../../../context";
+import { useAxios, usePosts } from "../../../context";
 import { buttonColor, loginColors } from "../../../global_styles";
 import { UploadBoxWrapper, Icon } from "../../../styled-components";
 import TextInput from "../../TextInput";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { newPostSchema } from "../../../schemas/newPostSchema";
+import { useAddPost } from "../../../hooks";
 
 interface Props {
   isOpen: boolean;
@@ -22,6 +23,8 @@ const defaultValues = {
 const NewPost = ({ isOpen, setIsOpen }: Props) => {
   const [currentImage, setCurrentImage] = useState<string>("");
   const { image, setImage } = usePosts();
+  const addPost = useAddPost();
+  const axios = useAxios();
 
   const {
     register,
@@ -56,7 +59,34 @@ const NewPost = ({ isOpen, setIsOpen }: Props) => {
     setCurrentImage("");
   };
 
-  const handleAdd = async (newPost: any) => {};
+  const handleAdd = async (newPost: any) => {
+    const post = {
+      description: newPost.description,
+      comments: [],
+      img: "",
+    };
+    if (image) {
+      const formData = new FormData();
+      formData.append("name", image.name);
+      formData.append("file", image);
+      post.img = image.name;
+      try {
+        await axios.post("/upload", formData);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    try {
+      await addPost.mutate(post, {
+        onSuccess: () => {
+          setIsOpen(false);
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Flex
@@ -137,6 +167,7 @@ const NewPost = ({ isOpen, setIsOpen }: Props) => {
             textTransform="uppercase"
             borderRadius="0"
             border="1px solid #A0AEC0"
+            isLoading={addPost.isLoading}
           >
             Add
           </Button>

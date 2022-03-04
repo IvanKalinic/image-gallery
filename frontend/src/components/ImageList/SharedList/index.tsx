@@ -1,6 +1,7 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Button, Flex, Image, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePosts } from "../../../context";
 import { buttonColor } from "../../../global_styles";
 import { useGetPosts } from "../../../hooks";
 import { PostContainer } from "../../../styled-components";
@@ -15,6 +16,11 @@ const SharedList = ({
 }) => {
   const [term, setTerm] = useState<string>("");
   const { data, isLoading } = useGetPosts();
+  const { setPosts } = usePosts();
+
+  useEffect(() => {
+    setPosts(data);
+  }, [data]);
 
   return (
     <Flex
@@ -23,8 +29,8 @@ const SharedList = ({
       alignItems="center"
       overflow="scroll"
       height="40rem"
-      pb="2rem"
-      pt="4rem"
+      position="relative"
+      pt="210%"
       css={{
         "&::-webkit-scrollbar": {
           width: "0.313rem",

@@ -16,6 +16,7 @@ import SharedList from "./SharedList";
 import PostDetails from "./PostDetails";
 import { PostData } from "../../types";
 import NewPost from "./NewPost";
+import { usePosts } from "../../context";
 
 const defaultValues = {
   _id: "",
@@ -26,8 +27,15 @@ const defaultValues = {
 
 const ImageList = () => {
   const [isListOpen, setIsListOpen] = useState<boolean>(true);
-  const [isNewOpen, setIsNewOpen] = useState<boolean>(true);
+  const [isNewOpen, setIsNewOpen] = useState<boolean>(false);
   const [openedPost, setOpenedPost] = useState<PostData>(defaultValues);
+  const { posts } = usePosts();
+
+  useEffect(() => {
+    if (posts) {
+      setOpenedPost(posts[0]);
+    }
+  }, [posts]);
 
   const handleClose = () => {
     setIsListOpen(false);

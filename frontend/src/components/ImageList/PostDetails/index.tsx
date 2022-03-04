@@ -1,6 +1,7 @@
 import { EditIcon } from "@chakra-ui/icons";
 import { Flex, Image, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
+import { usePosts } from "../../../context";
 import { PostData } from "../../../types";
 import NewPost from "../NewPost";
 
@@ -10,13 +11,11 @@ interface Props {
   openedPost: PostData;
 }
 const PostDetails = ({ isOpen, setIsOpen, openedPost }: Props) => {
+  const { posts } = usePosts();
+
   const handleEdit = () => {
     //logic for editing post
   };
-
-  useEffect(() => {
-    //openePost = posts[0]
-  }, []);
 
   //
 
@@ -46,10 +45,10 @@ const PostDetails = ({ isOpen, setIsOpen, openedPost }: Props) => {
             mr="1rem"
             ml="1rem"
             objectFit="cover"
-            src={`${process.env.REACT_APP_BACKEND_PUBLIC_FOLDER}/${openedPost.img}`}
+            src={`${process.env.REACT_APP_BACKEND_PUBLIC_FOLDER}/${openedPost?.img}`}
           />
           <Text fontSize="2rem" fontWeight="700" mt="2rem">
-            {openedPost.description}
+            {openedPost?.description}
           </Text>
         </>
       ) : (
