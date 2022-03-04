@@ -25,7 +25,7 @@ const Searchbar = ({ term, setTerm }: Props) => {
         w="1.5rem"
         h="1.5rem"
         ml="-3rem"
-        mb="-2rem"
+        mt="3rem"
         color="#ABAFAE"
         css={{ ":hover": { color: "black" } }}
       />

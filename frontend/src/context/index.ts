@@ -1,3 +1,4 @@
 import { useUser, UserProvider } from "./UserContext";
+import { useAxios, AxiosProvider } from "./AxiosContext";
 
-export { useUser, UserProvider };
+export { useUser, UserProvider, useAxios, AxiosProvider };

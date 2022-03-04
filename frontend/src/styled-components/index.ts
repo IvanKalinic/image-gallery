@@ -54,4 +54,17 @@ export const SearchWrapper = styled.input`
   outline: none;
   display: flex;
   padding-left: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 5rem;
+`;
+
+export const PostContainer = styled.div`
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.25);
+  width: 23rem;
+  height: 7.625rem;
+  display: flex;
+  align-items: center;
+  jusitfy-content: space-around;
+  margin-bottom: 2rem;
+  margin-left: 1.5rem;
 `;

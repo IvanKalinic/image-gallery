@@ -1,3 +1,19 @@
 import { useLocalStorage } from "./useLocalStorage";
+import {
+  useAddPost,
+  useGetPosts,
+  useGetPost,
+  useDeleteComment,
+  useEditComment,
+  useAddComment,
+} from "./post-hooks";
 
-export { useLocalStorage };
+export {
+  useLocalStorage,
+  useAddPost,
+  useGetPosts,
+  useGetPost,
+  useDeleteComment,
+  useEditComment,
+  useAddComment,
+};
