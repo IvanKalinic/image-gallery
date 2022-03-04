@@ -72,8 +72,8 @@ export const UploadBoxWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: ${({ image }: { image: any }) =>
-    !image ? "0.125rem dashed #ffffff" : "0"};
+  border: ${({ image }: { image: string }) =>
+    !image ? "0.125rem dashed #ffffff" : "0rem"};
   border-radius: 0.625rem;
   width: 35vw;
   height: 50vh;
@@ -82,7 +82,7 @@ export const UploadBoxWrapper = styled.div`
   margin-right: 5rem;
 `;
 
-export const UploadIcon = styled.span`
+export const Icon = styled.span`
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;

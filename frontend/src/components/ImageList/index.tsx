@@ -95,10 +95,8 @@ const ImageList = () => {
                 New
               </Text>
             </Flex>
-
             <SharedList setOpenedPost={setOpenedPost} />
           </Flex>
-
           <PostDetails
             openedPost={openedPost}
             isOpen={isNewOpen}

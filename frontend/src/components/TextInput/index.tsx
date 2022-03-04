@@ -1,4 +1,11 @@
-import { Flex, Input, InputProps } from "@chakra-ui/react";
+import {
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  InputProps,
+} from "@chakra-ui/react";
 import { FieldValues, DeepMap, FieldError } from "react-hook-form";
 import { Search2Icon } from "@chakra-ui/icons";
 
@@ -8,21 +15,43 @@ interface Props extends InputProps {
   registerName: string;
   register: any;
   errors: DeepMap<FieldValues, FieldError>;
+  search?: boolean;
+  newPost?: boolean;
 }
 const TextInput = (props: Props) => {
-  const { title, placeholder, registerName, register, errors, ...styleProps } =
-    props;
+  const {
+    title,
+    placeholder,
+    registerName,
+    register,
+    errors,
+    search,
+    newPost,
+    ...styleProps
+  } = props;
 
+  console.log(errors);
   return (
-    <Flex>
+    <FormControl isInvalid={errors[registerName]} mt={3}>
+      <FormLabel
+        fontWeight="500"
+        fontSize="1rem"
+        ml={newPost ? "12.5rem" : "0"}
+        mt={newPost ? "1rem" : "0"}
+      >
+        {title}
+      </FormLabel>
       <Input
         placeholder={placeholder}
         {...register(registerName)}
         errors={errors}
         {...styleProps}
       />
-      <Search2Icon cursor="pointer" ml="-5rem" />
-    </Flex>
+      {search && <Search2Icon cursor="pointer" ml="-5rem" />}
+      <FormErrorMessage ml={newPost ? "12.5rem" : "0"}>
+        {errors[registerName]?.message}
+      </FormErrorMessage>
+    </FormControl>
   );
 };
 

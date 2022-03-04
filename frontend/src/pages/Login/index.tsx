@@ -71,7 +71,7 @@ const Login = () => {
         >
           <Text
             fontSize="2.25rem"
-            mb="-0.375rem"
+            mb="0.375rem"
             fontWeight="900"
             lineHeight="3.375rem"
           >

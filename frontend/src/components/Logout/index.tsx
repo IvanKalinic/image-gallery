@@ -3,12 +3,13 @@ import { Navigate } from "react-router-dom";
 import { useUser } from "../../context";
 
 const Logout = () => {
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
 
   useEffect(() => {
-    setUser(null);
+    setUser({ email: "", password: "" });
   }, [setUser]);
 
+  console.log(user);
   return <Navigate to="/" />;
 };
 
