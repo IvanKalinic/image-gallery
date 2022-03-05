@@ -81,7 +81,6 @@ const Gallery = () => {
           </Popover>
         </Flex>
       </FixedNavbarWrapper>
-
       <ImageList />
     </>
   );

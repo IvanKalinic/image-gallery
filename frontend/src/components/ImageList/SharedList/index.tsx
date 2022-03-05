@@ -1,6 +1,6 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { Button, Flex, Image, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Button, Flex, Image, Text, Box } from "@chakra-ui/react";
+import { useCallback, useEffect, useState } from "react";
 import { usePosts } from "../../../context";
 import { buttonColor } from "../../../global_styles";
 import { useGetPosts } from "../../../hooks";
@@ -15,49 +15,44 @@ const SharedList = ({
   setOpenedPost: React.Dispatch<React.SetStateAction<PostData>>;
 }) => {
   const [term, setTerm] = useState<string>("");
+  const [searchedPosts, setSearchedPosts] = useState<PostData[]>([]);
   const { data, isLoading } = useGetPosts();
-  const { setPosts } = usePosts();
+  const { posts, setPosts } = usePosts();
 
   useEffect(() => {
     setPosts(data);
   }, [data]);
 
+  const findPosts = useCallback(
+    (term) => {
+      return posts?.filter((post: PostData) =>
+        post.description.toUpperCase().includes(term.toUpperCase())
+      );
+    },
+    [term]
+  );
+
+  useEffect(() => {
+    setSearchedPosts(term ? findPosts(term) : data);
+  }, [term, data, findPosts]);
+
   return (
-    <Flex
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      overflow="scroll"
-      height="40rem"
-      position="relative"
-      pt="210%"
-      css={{
-        "&::-webkit-scrollbar": {
-          width: "0.313rem",
-        },
-        "&::-webkit-scrollbar-track": {
-          backgroundColor: "transparent",
-        },
-        "&::-webkit-scrollbar-thumb": {
-          borderRadius: "1.25rem",
-          border: "0.375rem solid",
-          color: "#ccd5d9",
-          backgroundClip: "content-box",
-        },
-        "&::-webkit-scrollbar-thumb: hover": {
-          color: "#a8bbbf",
-        },
-      }}
-    >
+    <Flex flexDirection="column" justifyContent="center" alignItems="center">
       <Searchbar term={term} setTerm={setTerm} />
       <Flex
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        mt="2rem"
+        width="100%"
+        minHeight="0"
+        maxHeight="auto"
+        pb="2rem"
+        mt="-15rem"
+        pt="15rem"
+        position="relative"
       >
-        {data?.map((post: PostData) => (
-          <Flex flexDirection="column">
+        {searchedPosts?.map((post: PostData) => (
+          <Flex flexDirection="column" pt="-4rem">
             <ListItem post={post} setOpenedPost={setOpenedPost} />
           </Flex>
         ))}

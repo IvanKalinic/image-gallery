@@ -26,7 +26,8 @@ const PostDetails = ({ isOpen, setIsOpen, openedPost }: Props) => {
       ml="16rem"
       position="relative"
       top="9rem"
-      right="7rem"
+      left="5rem"
+      // right="7rem"
     >
       {!isOpen ? (
         <>

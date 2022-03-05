@@ -50,12 +50,11 @@ export const SearchWrapper = styled.input`
   width: 23.125rem;
   height: 3rem;
   color: ${loginColors};
-  margin-top: 2rem;
   outline: none;
   display: flex;
   padding-left: 1rem;
   margin-bottom: 2rem;
-  margin-top: 5rem;
+  margin-left: 1rem;
 `;
 
 export const PostContainer = styled.div`

@@ -74,13 +74,42 @@ const ImageList = () => {
       ) : (
         <Flex justifyContent="center">
           <Flex
+            position="fixed"
+            left="0"
+            top="0"
+            bottom="0"
+            right="0"
             flexDirection="column"
             w="29rem"
-            h="100%"
             boxShadow="0 0.25rem 0.25rem rgba(0, 0, 0, 0.25)"
             mt="5.25rem"
+            overflowY="scroll"
+            whiteSpace="nowrap"
+            scrollBehavior="smooth"
+            css={{
+              "&::-webkit-scrollbar": {
+                width: "0.313rem",
+              },
+              "&::-webkit-scrollbar-track": {
+                backgroundColor: "transparent",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                borderRadius: "1.25rem",
+                border: "0.375rem solid",
+                color: "#ccd5d9",
+                backgroundClip: "content-box",
+              },
+              "&::-webkit-scrollbar-thumb: hover": {
+                color: "#a8bbbf",
+              },
+            }}
           >
-            <Flex alignItems="center" justifyContent="space-between">
+            <Flex
+              alignItems="center"
+              justifyContent="space-between"
+              position="sticky"
+              zIndex="1000"
+            >
               <Text
                 fontWeight="700"
                 fontSize="2rem"
