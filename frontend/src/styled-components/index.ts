@@ -94,3 +94,31 @@ export const Icon = styled.span`
     border: 0.125rem solid #8c3103;
   }
 `;
+
+export const Circle = styled.span`
+  cursor: pointer;
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: ${navbarColor};
+  border: 0.125rem solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const PersonContainer = styled.span`
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: white;
+  border: 0.125rem solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 0.5rem;
+`;

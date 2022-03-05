@@ -1,8 +1,25 @@
-import { EditIcon } from "@chakra-ui/icons";
-import { Flex, Image, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { CloseIcon, EditIcon, SmallCloseIcon } from "@chakra-ui/icons";
+import {
+  Flex,
+  Image,
+  Text,
+  useDisclosure,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Comments } from "../../../assets/svg";
 import { usePosts } from "../../../context";
+
 import { PostData } from "../../../types";
+import CommentsPopup from "../../CommentsPopup";
 import NewPost from "../NewPost";
 
 interface Props {
@@ -17,8 +34,6 @@ const PostDetails = ({ isOpen, setIsOpen, openedPost }: Props) => {
     //logic for editing post
   };
 
-  //
-
   return (
     <Flex
       flexDirection="column"
@@ -27,14 +42,13 @@ const PostDetails = ({ isOpen, setIsOpen, openedPost }: Props) => {
       position="relative"
       top="9rem"
       left="5rem"
-      // right="7rem"
     >
       {!isOpen ? (
         <>
           <EditIcon
             position="absolute"
             top="-2rem"
-            right="-4rem"
+            right="-7rem"
             w="2rem"
             h="2rem"
             cursor="pointer"
@@ -51,6 +65,8 @@ const PostDetails = ({ isOpen, setIsOpen, openedPost }: Props) => {
           <Text fontSize="2rem" fontWeight="700" mt="2rem">
             {openedPost?.description}
           </Text>
+
+          <CommentsPopup openedPost={openedPost} />
         </>
       ) : (
         <NewPost isOpen={isOpen} setIsOpen={setIsOpen} />

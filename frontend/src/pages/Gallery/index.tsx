@@ -20,6 +20,8 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { ImageList } from "../../components";
 import { buttonColor } from "../../global_styles";
 import { Link } from "react-router-dom";
+import { Person } from "../../assets/svg";
+import { PersonContainer } from "../../styled-components";
 
 const Gallery = () => {
   const { user } = useUser();
@@ -37,15 +39,9 @@ const Gallery = () => {
           src={`${process.env.REACT_APP_CLIENT_PUBLIC_FOLDER}/agilno2.png`}
         />
         <Flex alignItems="center">
-          <Image
-            cursor="pointer"
-            height="4.375rem"
-            width=" 4.375rem"
-            borderRadius="50%"
-            ml="4rem"
-            mr="1rem"
-            src={`${process.env.REACT_APP_CLIENT_PUBLIC_FOLDER}/avatar.png`}
-          />
+          <PersonContainer>
+            <Person />
+          </PersonContainer>
           <Text textTransform="uppercase" mr="1rem">
             {user.email.split("@")[0]}
           </Text>

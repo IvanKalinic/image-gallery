@@ -53,7 +53,11 @@ const SharedList = ({
       >
         {searchedPosts?.map((post: PostData) => (
           <Flex flexDirection="column" pt="-4rem">
-            <ListItem post={post} setOpenedPost={setOpenedPost} />
+            <ListItem
+              post={post}
+              setOpenedPost={setOpenedPost}
+              key={post._id}
+            />
           </Flex>
         ))}
       </Flex>
