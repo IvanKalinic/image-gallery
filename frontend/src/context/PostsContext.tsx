@@ -1,19 +1,22 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
+import { useLocalStorage } from "../hooks";
 
 type ContextType = {
   posts: any;
   setPosts: React.Dispatch<React.SetStateAction<any>>;
-
   image: any;
   setImage: React.Dispatch<React.SetStateAction<any>>;
+  imageSize: { width: number; height: number };
+  setImageSize: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const PostsContext = createContext<ContextType>({
   posts: [],
   setPosts: () => null,
-
   image: null,
   setImage: () => null,
+  imageSize: { width: 0, height: 0 },
+  setImageSize: () => null,
 });
 
 export const usePosts = () => {
@@ -32,6 +35,10 @@ interface Props {
 export const PostsProvider = ({ children }: Props) => {
   const [posts, setPosts] = useState<Array<any>>([]);
   const [image, setImage] = useState<any>(null);
+  const [imageSize, setImageSize] = useLocalStorage("imageSize", {
+    height: 0,
+    width: 0,
+  });
 
   const value = useMemo(
     () => ({
@@ -39,8 +46,10 @@ export const PostsProvider = ({ children }: Props) => {
       setPosts,
       image,
       setImage,
+      imageSize,
+      setImageSize,
     }),
-    [posts, setPosts, image, setImage]
+    [posts, setPosts, image, setImage, imageSize, setImageSize]
   );
 
   return (

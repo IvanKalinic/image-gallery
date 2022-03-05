@@ -1,4 +1,4 @@
-import { DeleteIcon } from "@chakra-ui/icons";
+import { ArrowLeftIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Flex, Text, Image, Box, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Upload } from "../../../assets/svg";
@@ -96,6 +96,20 @@ const NewPost = ({ isOpen, setIsOpen }: Props) => {
       width="58vw"
     >
       <form onSubmit={handleSubmit(handleAdd)}>
+        <Flex
+          position="absolute"
+          top="0rem"
+          right="-4rem"
+          cursor="pointer"
+          alignItems="center"
+          onClick={() => setIsOpen(false)}
+          css={{ ":hover": { color: "blue" } }}
+        >
+          <ArrowLeftIcon h="2rem" w="2rem" mr="0.5rem" />
+          <Text textTransform="uppercase" fontWeight="700">
+            Back
+          </Text>
+        </Flex>
         <UploadBoxWrapper image={currentImage}>
           {!image ? (
             <>

@@ -9,7 +9,6 @@ const Logout = () => {
     setUser({ email: "", password: "" });
   }, [setUser]);
 
-  console.log(user);
   return <Navigate to="/" />;
 };
 

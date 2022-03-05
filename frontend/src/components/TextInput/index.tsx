@@ -30,7 +30,6 @@ const TextInput = (props: Props) => {
     ...styleProps
   } = props;
 
-  console.log(errors);
   return (
     <FormControl isInvalid={errors[registerName]} mt={3}>
       <FormLabel

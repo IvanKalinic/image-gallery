@@ -38,6 +38,7 @@ const Gallery = () => {
           ml="4rem"
           src={`${process.env.REACT_APP_CLIENT_PUBLIC_FOLDER}/agilno2.png`}
         />
+
         <Flex alignItems="center">
           <PersonContainer>
             <Person />

@@ -47,7 +47,6 @@ const ImageList = () => {
 
   const handleAdd = () => {};
 
-  console.log(openedPost);
   const isMobile = false;
   return (
     <>

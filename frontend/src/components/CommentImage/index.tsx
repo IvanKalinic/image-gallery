@@ -1,48 +1,117 @@
 import React, { useEffect, useRef, useState } from "react";
 import { PostData } from "../../types";
 import { Image } from "@chakra-ui/react";
+import { useAxios, usePosts } from "../../context";
 
 interface Props {
   openedPost: PostData;
   resize: boolean;
   setResize: React.Dispatch<React.SetStateAction<boolean>>;
+  enlarge: boolean;
+  setEnlarge: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const CommentImage = ({ openedPost, resize, setResize }: Props) => {
+
+const CommentImage = ({
+  openedPost,
+  resize,
+  setResize,
+  enlarge,
+  setEnlarge,
+}: Props) => {
   const imageRef = useRef<any>(null);
+  const [margin, setMargin] = useState<number>(15);
+  const axios = useAxios();
+
   const [dimensions, setDimensions] = useState<{
     height: number;
     width: number;
   }>({
-    height: imageRef?.current?.clientHeight,
-    width: imageRef?.current?.clientWidth,
+    height:
+      imageRef?.current?.clientHeight || openedPost?.saveDimensions?.height,
+    width: imageRef?.current?.clientWidth || openedPost?.saveDimensions?.width,
   });
 
-  console.log(imageRef?.current?.clientWidth / 16);
+  const handleDimensions = async () => {
+    if (dimensions?.height && dimensions?.width && openedPost?.comments) {
+      const saveDimensions = {
+        height: dimensions.height,
+        width: dimensions?.width,
+      };
+      await axios.put(`/posts/${openedPost?._id}`, {
+        ...openedPost,
+        saveDimensions,
+      });
+    }
+  };
 
   useEffect(() => {
+    if (openedPost?.comments === []) {
+      setResize(false);
+      setEnlarge(false);
+      return;
+    }
     if (resize && imageRef) {
       setDimensions({
-        height: (0.5 * imageRef?.current?.clientHeight) / 16,
-        width: (0.5 * imageRef?.current?.clientWidth) / 16,
+        height: (0.8 * imageRef?.current?.clientHeight) / 16,
+        width: (0.9 * imageRef?.current?.clientWidth) / 16,
       });
-    } else {
-      setResize(false);
+      handleDimensions();
+      setMargin(2 * margin);
+      return;
     }
-  }, [openedPost?.comments]);
+    if (enlarge && imageRef) {
+      setDimensions({
+        height: (1.2 * imageRef?.current?.clientHeight) / 16,
+        width: (1.3 * imageRef?.current?.clientWidth) / 16,
+      });
+      handleDimensions();
+      setMargin(0.5 * margin);
+      return;
+    }
 
-  console.log(dimensions);
+    setResize(false);
+    setEnlarge(false);
+  }, [openedPost]);
 
+  // useEffect(() => {
+  // const handleDimensions = async () => {
+  //   if (dimensions?.height && dimensions?.width && openedPost?.comments) {
+  //     setImageSize({ height: dimensions.height, width: dimensions?.width });
+  //     await axios.put(`/posts/${openedPost?._id}`, {
+  //       ...openedPost,
+  //       imageSize,
+  //     });
+  //   }
+  // };
+  //   handleDimensions();
+  // }, [dimensions]);
+
+  useEffect(() => {
+    if (!openedPost?.comments || !openedPost?.saveDimensions) {
+      setEnlarge(false);
+      setResize(false);
+      setMargin(0);
+    }
+  }, [openedPost]);
+
+  console.log(enlarge);
+  console.log(resize);
   return (
     <Image
       width={
-        resize && dimensions?.width ? `${dimensions?.width}rem` : "17.75rem"
+        (resize || enlarge) && dimensions?.width
+          ? `${dimensions?.width}rem`
+          : "17.75rem"
       }
       height={
-        resize && dimensions?.height ? `${dimensions?.height}rem` : "10.75rem"
+        (resize || enlarge) && dimensions?.height
+          ? `${dimensions?.height}rem`
+          : "10.75rem"
       }
       objectFit="cover"
       position="fixed"
       top="4rem"
+      mb={resize || enlarge ? `-${margin}rem` : "0rem"}
       ref={imageRef}
       src={`${process.env.REACT_APP_BACKEND_PUBLIC_FOLDER}/${openedPost?.img}`}
     />

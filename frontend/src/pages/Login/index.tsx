@@ -33,7 +33,6 @@ const Login = () => {
 
   const handleLogin = async (loginForm: LoginForm) => {
     try {
-      console.log(loginForm);
       if (checkIsAllowed(loginForm.email, loginForm.password)) {
         setUser({ email: loginForm.email, password: loginForm.password });
         navigate("/gallery");

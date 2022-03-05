@@ -52,7 +52,7 @@ const SharedList = ({
         position="relative"
       >
         {searchedPosts?.map((post: PostData) => (
-          <Flex flexDirection="column" pt="-4rem">
+          <Flex flexDirection="column" pt="-4rem" key={post._id}>
             <ListItem
               post={post}
               setOpenedPost={setOpenedPost}

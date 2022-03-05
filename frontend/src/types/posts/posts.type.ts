@@ -3,4 +3,5 @@ export type PostData = {
   description: string;
   img: string;
   comments: Array<any>;
+  saveDimensions?: { height: number; width: number };
 };
