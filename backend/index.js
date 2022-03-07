@@ -9,6 +9,21 @@ const cors = require("cors");
 
 dotenv.config();
 
+const whitelist = ['http://localhost:3000', 'http://localhost:8800', "myname"];
+const corsOptions = {
+  origin: function (origin, callback) {
+    console.log("** Origin of request " + origin)
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      console.log("Origin acceptable")
+      callback(null, true)
+    } else {
+      console.log("Origin rejected")
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+app.use(cors(corsOptions))
+
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -43,6 +58,13 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 });
 
 app.use("/api/posts", postRoute);
+
+if(process.env.NODE_ENV === 'production'){
+  app.use( express.static(path.join(__dirname, "frontend/build")));
+  app.get("*", (req,res) => {
+    res.sendFile(path.join(__dirname,"frontend/build","index.html"))
+  })
+}
 
 app.listen(8800, () => {
   console.log("Backend server running");
