@@ -1,12 +1,10 @@
-import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { Button, Flex, Image, Text, Box } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
 import { usePosts } from "../../../context";
-import { buttonColor } from "../../../global_styles";
 import { useGetPosts } from "../../../hooks";
-import { PostContainer } from "../../../styled-components";
 import { PostData } from "../../../types";
-import Searchbar from "../../Searchbar";
+import { Loader } from "../../HelperComponents";
+import Searchbar from "../../HelperComponents/Searchbar";
 import ListItem from "../ListItem";
 
 const SharedList = ({
@@ -39,28 +37,32 @@ const SharedList = ({
   return (
     <Flex flexDirection="column" justifyContent="center" alignItems="center">
       <Searchbar term={term} setTerm={setTerm} />
-      <Flex
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        width="100%"
-        minHeight="0"
-        maxHeight="auto"
-        pb="2rem"
-        mt="-15rem"
-        pt="15rem"
-        position="relative"
-      >
-        {searchedPosts?.map((post: PostData) => (
-          <Flex flexDirection="column" pt="-4rem" key={post._id}>
-            <ListItem
-              post={post}
-              setOpenedPost={setOpenedPost}
-              key={post._id}
-            />
-          </Flex>
-        ))}
-      </Flex>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Flex
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          width="100%"
+          minHeight="0"
+          maxHeight="auto"
+          pb="2rem"
+          mt="-15rem"
+          pt="15rem"
+          position="relative"
+        >
+          {searchedPosts?.map((post: PostData) => (
+            <Flex flexDirection="column" pt="-4rem" key={post._id}>
+              <ListItem
+                post={post}
+                setOpenedPost={setOpenedPost}
+                key={post._id}
+              />
+            </Flex>
+          ))}
+        </Flex>
+      )}
     </Flex>
   );
 };

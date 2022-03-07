@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { PostData } from "../../types";
+import { PostData } from "../../../types";
 import { Image } from "@chakra-ui/react";
-import { useAxios } from "../../context";
+import { useAxios } from "../../../context";
 
 interface Props {
   openedPost: PostData;
@@ -11,7 +11,7 @@ interface Props {
   setEnlarge: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CommentImage = ({
+export const CommentImage = ({
   openedPost,
   resize,
   setResize,
@@ -44,6 +44,7 @@ const CommentImage = ({
     }
   };
 
+  // handling enlarge and resize on change in layout
   useEffect(() => {
     if (openedPost?.comments === []) {
       setResize(false);
@@ -73,18 +74,13 @@ const CommentImage = ({
     setEnlarge(false);
   }, [openedPost]);
 
+  // reseting image size to defaults
   useEffect(() => {
     if (!openedPost?.comments || !openedPost?.saveDimensions) {
       setEnlarge(false);
       setResize(false);
       setMargin(0);
     }
-    // else {
-    //   setDimensions({
-    //     height: openedPost?.saveDimensions?.height,
-    //     width: openedPost?.saveDimensions?.width,
-    //   });
-    // }
   }, [openedPost]);
 
   return (
@@ -108,5 +104,3 @@ const CommentImage = ({
     />
   );
 };
-
-export default CommentImage;

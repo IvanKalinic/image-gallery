@@ -4,18 +4,13 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerContent,
-  Box,
   Flex,
   Text,
-  Heading,
 } from "@chakra-ui/react";
 import { AddIcon, ArrowBackIcon } from "@chakra-ui/icons";
-import { useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import SharedList from "./SharedList";
 import PostDetails from "./PostDetails";
-import { PostData } from "../../types";
-import NewPost from "./NewPost";
 import { usePosts } from "../../context";
 
 interface Props {
@@ -26,7 +21,7 @@ interface Props {
 
 const ImageList = ({ isMobile, isListOpen, setIsListOpen }: Props) => {
   const [isNewOpen, setIsNewOpen] = useState<boolean>(false);
-  const { posts, openedPost, setOpenedPost } = usePosts();
+  const { posts, setOpenedPost } = usePosts();
 
   useEffect(() => {
     if (posts) setOpenedPost(posts[0]);
@@ -39,8 +34,6 @@ const ImageList = ({ isMobile, isListOpen, setIsListOpen }: Props) => {
   useEffect(() => {
     setIsListOpen(true);
   }, []);
-
-  const handleAdd = () => {};
 
   return (
     <Flex justifyContent="center">

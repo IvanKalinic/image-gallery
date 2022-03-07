@@ -61,7 +61,6 @@ router.delete("/:id", async (req, res) => {
 router.post("/:id/comment", async (req, res) => {
   const post = await Post.findById(req.params.id);
   try {
-    console.log(req.body);
     await post.updateOne({ $push: { comments: req.body } });
     res.status(200).json("The comment has been added to the post");
   } catch (err) {

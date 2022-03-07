@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Popover,
   PopoverTrigger,
@@ -6,40 +6,26 @@ import {
   PopoverHeader,
   PopoverBody,
   PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
   Text,
   Flex,
-  Image,
 } from "@chakra-ui/react";
-import {
-  ChevronLeftIcon,
-  SmallCloseIcon,
-  EditIcon,
-  DeleteIcon,
-} from "@chakra-ui/icons";
-import { AddComent, Comments } from "../../assets/svg";
-import { Circle } from "../../styled-components";
-import { navbarColor } from "../../global_styles";
-import { PostData } from "../../types";
-import Comment from "../Comment";
-import CommentImage from "../CommentImage";
+import { ChevronLeftIcon, SmallCloseIcon } from "@chakra-ui/icons";
+import { AddComent, Comments } from "../../../assets/svg";
+import { Circle } from "../../../styled-components";
+import { navbarColor } from "../../../global_styles";
+import { PostData } from "../../../types";
+import { Comment } from "../Comment";
+import { CommentImage } from "../CommentImage";
 import { v4 as uuidv4 } from "uuid";
-import {
-  useAddComment,
-  useDeleteComment,
-  useEditComment,
-  useGetPost,
-} from "../../hooks";
-import { usePosts, useUser } from "../../context";
+import { useAddComment, useEditComment, useGetPost } from "../../../hooks";
+import { usePosts, useUser } from "../../../context";
 
 interface Props {
   openedPost: PostData;
   setOpenedPost: React.Dispatch<React.SetStateAction<PostData>>;
 }
 
-const CommentsPopup = ({ openedPost, setOpenedPost }: Props) => {
+export const CommentsPopup = ({ openedPost, setOpenedPost }: Props) => {
   const [openComments, setOpenComments] = useState<boolean>(false);
   const [firstElementPosition, setFirstElementPosition] = useState<number>(0);
   const [resize, setResize] = useState<boolean>(false);
@@ -60,11 +46,6 @@ const CommentsPopup = ({ openedPost, setOpenedPost }: Props) => {
       setImageSize(null);
     }
   }, [firstElementPosition]);
-
-  // useEffect(() => {
-  //   if (postAdded) {
-  //   }
-  // }, [postAdded]);
 
   const handleAddComment = async () => {
     if (inputValue) {
@@ -200,5 +181,3 @@ const CommentsPopup = ({ openedPost, setOpenedPost }: Props) => {
     </Popover>
   );
 };
-
-export default CommentsPopup;

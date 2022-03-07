@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { UniversalWrapper } from "../../styled-components";
+import { UniversalWrapper } from "../../../styled-components";
 
 const Error = () => {
   return (

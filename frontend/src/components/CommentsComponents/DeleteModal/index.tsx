@@ -8,8 +8,8 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { usePosts } from "../../context";
-import { useDeleteComment } from "../../hooks";
+import { usePosts } from "../../../context";
+import { useDeleteComment } from "../../../hooks";
 
 interface Props {
   isOpen: boolean;
@@ -19,7 +19,7 @@ interface Props {
   setResize: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DeleteModal = ({
+export const DeleteModal = ({
   isOpen,
   setIsOpen,
   comment,
@@ -82,5 +82,3 @@ const DeleteModal = ({
     </Modal>
   );
 };
-
-export default DeleteModal;

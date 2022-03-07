@@ -1,5 +1,5 @@
 import { Oval } from "react-loader-spinner";
-import { LoaderContainer } from "../../styled-components";
+import { LoaderContainer } from "../../../styled-components";
 
 const Loader = () => {
   return (

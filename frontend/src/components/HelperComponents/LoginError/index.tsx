@@ -2,7 +2,7 @@ import { Text } from "@chakra-ui/react";
 
 const LoginError = () => {
   return (
-    <Text fontSize="1rem" position="relative" color="red" mt="-1rem">
+    <Text fontSize="1rem" position="relative" color="red" mt="0.5rem">
       Invalid username or password
     </Text>
   );

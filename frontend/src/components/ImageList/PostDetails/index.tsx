@@ -4,8 +4,9 @@ import { useEffect } from "react";
 import { useQueryClient } from "react-query";
 import { usePosts } from "../../../context";
 import { useMediaQuery } from "@chakra-ui/react";
-import CommentsPopup from "../../CommentsPopup";
+import { CommentsPopup } from "../../CommentsComponents";
 import NewPost from "../NewPost";
+import "./index.scss";
 
 interface Props {
   isOpen: boolean;
@@ -26,7 +27,6 @@ const PostDetails = ({ isOpen, setIsOpen, isMobile }: Props) => {
   useEffect(() => {
     const fetchFirstPost = async () => {
       if (!posts) await queryClient.invalidateQueries("fetchPosts");
-      console.log(posts);
       setOpenedPost(posts[0]);
     };
     fetchFirstPost();
@@ -44,9 +44,9 @@ const PostDetails = ({ isOpen, setIsOpen, isMobile }: Props) => {
       {!isOpen ? (
         <Flex flexDirection="column">
           <EditIcon
-            position="absolute"
-            top="-2rem"
-            right="-7rem"
+            position="fixed"
+            top="6rem"
+            right="2rem"
             w="2rem"
             h="2rem"
             cursor="pointer"
@@ -54,6 +54,7 @@ const PostDetails = ({ isOpen, setIsOpen, isMobile }: Props) => {
           />
 
           <Image
+            onLoad={(e: any) => e.target.classList.add("active-img")}
             width={
               imageResize[0] && !smallImageSize[0]
                 ? "50vw"

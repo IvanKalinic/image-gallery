@@ -1,3 +1,21 @@
+# Running frontend
+
+### npm install
+
+### npm run start
+
+### possible user credentials for login:
+
+-provided in frontend/mockUsers folder
+
+# Running Backend
+
+### npm install
+
+### npm run nodemon
+
+## Adding .env folders on both frontend and backend (they will be sent in email)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

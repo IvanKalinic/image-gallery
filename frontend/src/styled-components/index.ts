@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { navbarColor, loginColors } from "../global_styles";
+import {
+  navbarColor,
+  loginColors,
+  existingCommentColor,
+} from "../global_styles";
 
 export const FixedNavbarWrapper = styled.div`
   position: fixed;
@@ -145,6 +149,16 @@ export const BasicCircle = styled.span`
   background-color: ${navbarColor};
   margin-right: 0.25rem;
   z-index: 999;
+`;
+
+export const GreyCommentCircle = styled.span`
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  background-color: ${existingCommentColor};
 `;
 
 export const ImageResponsive = styled.div`

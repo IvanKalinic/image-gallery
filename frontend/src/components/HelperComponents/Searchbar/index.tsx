@@ -1,4 +1,4 @@
-import { SearchWrapper } from "../../styled-components";
+import { SearchWrapper } from "../../../styled-components";
 import { Search2Icon } from "@chakra-ui/icons";
 import { Flex } from "@chakra-ui/react";
 

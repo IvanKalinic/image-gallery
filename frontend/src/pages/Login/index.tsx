@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Flex, Text, Image } from "@chakra-ui/react";
+import { Button, Flex, Text, Image } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../schemas/loginSchema";
@@ -36,9 +36,11 @@ const Login = () => {
       if (checkIsAllowed(loginForm.email, loginForm.password)) {
         setUser({ email: loginForm.email, password: loginForm.password });
         navigate("/gallery");
+      } else {
+        setLoginError(true);
       }
     } catch (err) {
-      setLoginError(true);
+      console.log(err);
     }
   };
 
@@ -105,14 +107,12 @@ const Login = () => {
               color: `${loginColors}`,
             }}
           />
-          <Box height="1rem">
-            {loginError && !errors.email && !errors.password && <LoginError />}
-          </Box>
+          {loginError && !errors.email && !errors.password && <LoginError />}
           <Button
             type="submit"
             color="white"
             fontWeight="500"
-            mt="0.5rem"
+            mt="1rem"
             ml="0.5rem"
             backgroundColor={buttonColor}
             textTransform="uppercase"

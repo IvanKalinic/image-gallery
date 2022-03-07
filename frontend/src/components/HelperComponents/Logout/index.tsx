@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { useUser } from "../../context";
+import { useUser } from "../../../context";
 
 const Logout = () => {
   const { user, setUser } = useUser();

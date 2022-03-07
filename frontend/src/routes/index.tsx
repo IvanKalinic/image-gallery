@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Loader } from "../components";
 import { useUser } from "../context";
 
-const Error = lazy(() => import("../components/Error"));
-const Logout = lazy(() => import("../components/Logout"));
+const Error = lazy(() => import("../components/HelperComponents/Error"));
+const Logout = lazy(() => import("../components/HelperComponents/Logout"));
 const Login = lazy(() => import("../pages/Login"));
 const Gallery = lazy(() => import("../pages/Gallery"));
 

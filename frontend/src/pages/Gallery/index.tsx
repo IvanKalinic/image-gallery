@@ -28,7 +28,7 @@ import { useState } from "react";
 const Gallery = () => {
   const [isListOpen, setIsListOpen] = useState<boolean>(false);
   const { user } = useUser();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onOpen } = useDisclosure();
   const responsiveNavbar = useMediaQuery("(max-width: 55rem)");
 
   return (

@@ -5,7 +5,7 @@ import { Upload } from "../../../assets/svg";
 import { useAxios, usePosts } from "../../../context";
 import { buttonColor, loginColors } from "../../../global_styles";
 import { UploadBoxWrapper, Icon } from "../../../styled-components";
-import TextInput from "../../TextInput";
+import TextInput from "../../HelperComponents/TextInput";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { newPostSchema } from "../../../schemas/newPostSchema";
@@ -29,7 +29,6 @@ const NewPost = ({ isOpen, setIsOpen }: Props) => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(newPostSchema),
