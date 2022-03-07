@@ -11,6 +11,11 @@ export const FixedNavbarWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   z-index: 50;
+
+  @media only screen and (max-width: 55rem) {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
 `;
 
 export const LoginNavbarWrapper = styled.div`
@@ -122,6 +127,10 @@ export const PersonContainer = styled.span`
   align-items: center;
   cursor: pointer;
   margin-right: 0.5rem;
+
+  @media only screen and (max-width: 55rem) {
+    margin-left: 2rem;
+  }
 `;
 
 export const BasicCircle = styled.span`
@@ -136,4 +145,11 @@ export const BasicCircle = styled.span`
   background-color: ${navbarColor};
   margin-right: 0.25rem;
   z-index: 999;
+`;
+
+export const ImageResponsive = styled.div`
+  @media only screen and (max-width: 90rem) {
+    width: 50vw;
+    height: 25vh;
+  }
 `;

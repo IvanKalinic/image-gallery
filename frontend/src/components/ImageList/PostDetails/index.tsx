@@ -3,16 +3,21 @@ import { Flex, Image, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useQueryClient } from "react-query";
 import { usePosts } from "../../../context";
+import { useMediaQuery } from "@chakra-ui/react";
 import CommentsPopup from "../../CommentsPopup";
 import NewPost from "../NewPost";
 
 interface Props {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isMobile: boolean;
 }
-const PostDetails = ({ isOpen, setIsOpen }: Props) => {
+
+const PostDetails = ({ isOpen, setIsOpen, isMobile }: Props) => {
   const { posts, openedPost, setOpenedPost } = usePosts();
   const queryClient = useQueryClient();
+  const imageResize = useMediaQuery("(max-width: 80rem)");
+  const smallImageSize = useMediaQuery("(max-width: 65rem)");
 
   const handleEdit = () => {
     //logic for editing post
@@ -37,7 +42,7 @@ const PostDetails = ({ isOpen, setIsOpen }: Props) => {
       left="5rem"
     >
       {!isOpen ? (
-        <>
+        <Flex flexDirection="column">
           <EditIcon
             position="absolute"
             top="-2rem"
@@ -47,22 +52,38 @@ const PostDetails = ({ isOpen, setIsOpen }: Props) => {
             cursor="pointer"
             onClick={handleEdit}
           />
+
           <Image
-            width="60rem"
+            width={
+              imageResize[0] && !smallImageSize[0]
+                ? "50vw"
+                : smallImageSize[0] && !isMobile
+                ? "30vw"
+                : isMobile
+                ? "90vw"
+                : "60rem"
+            }
             height="30rem"
-            mr="1rem"
-            ml="1rem"
+            mr={isMobile ? "5rem" : "1rem"}
+            ml={isMobile ? "-15rem" : "1rem"}
             objectFit="cover"
             src={`${process.env.REACT_APP_BACKEND_PUBLIC_FOLDER}/${openedPost?.img}`}
           />
-          <Text fontSize="2rem" fontWeight="700" mt="2rem">
+
+          <Text
+            fontSize="2rem"
+            fontWeight="700"
+            mt="2rem"
+            ml={isMobile ? "-30rem" : "0"}
+            overflowY={isMobile ? "scroll" : "hidden"}
+          >
             {openedPost?.description}
           </Text>
           <CommentsPopup
             openedPost={openedPost}
             setOpenedPost={setOpenedPost}
           />
-        </>
+        </Flex>
       ) : (
         <NewPost isOpen={isOpen} setIsOpen={setIsOpen} />
       )}
