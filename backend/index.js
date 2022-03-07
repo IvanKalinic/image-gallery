@@ -2,11 +2,10 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const helmet = require("helmet");
-const morgan = require("morgan");
 const multer = require("multer");
 const path = require("path");
 const postRoute = require("./routes/posts");
+const cors = require("cors");
 
 dotenv.config();
 
@@ -21,6 +20,9 @@ mongoose
   });
 
 app.use("/images", express.static(path.join(__dirname, "public/images")));
+
+app.use(cors());
+app.use(express.json());
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

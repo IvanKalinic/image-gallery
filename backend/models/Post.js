@@ -7,7 +7,11 @@ const PostSchema = new mongoose.Schema(
       max: 500,
     },
     img: { type: String },
-    comments: { type: Array, default: [{ id: Number, content: String }] },
+    comments: {
+      type: Array,
+      default: [{ id: String | Number, content: String }],
+    },
+    saveDimensions: { height: Number, width: Number },
   },
   { timestamps: true }
 );
