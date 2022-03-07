@@ -2,10 +2,10 @@ import { useQuery } from "react-query";
 import { useAxios } from "../../context/AxiosContext";
 import { PostData } from "../../types";
 
-export const useGetPost = (id: number) => {
+export const useGetPost = (id: string) => {
   const axios = useAxios();
 
-  const fetchPost = async (id: number): Promise<PostData | undefined> => {
+  const fetchPost = async (id: string): Promise<PostData | undefined> => {
     try {
       const { data } = await axios.get(`/posts/${id}`);
       return data;

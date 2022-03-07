@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { PostData } from "../../types";
 import { Image } from "@chakra-ui/react";
-import { useAxios, usePosts } from "../../context";
+import { useAxios } from "../../context";
 
 interface Props {
   openedPost: PostData;
@@ -73,29 +73,20 @@ const CommentImage = ({
     setEnlarge(false);
   }, [openedPost]);
 
-  // useEffect(() => {
-  // const handleDimensions = async () => {
-  //   if (dimensions?.height && dimensions?.width && openedPost?.comments) {
-  //     setImageSize({ height: dimensions.height, width: dimensions?.width });
-  //     await axios.put(`/posts/${openedPost?._id}`, {
-  //       ...openedPost,
-  //       imageSize,
-  //     });
-  //   }
-  // };
-  //   handleDimensions();
-  // }, [dimensions]);
-
   useEffect(() => {
     if (!openedPost?.comments || !openedPost?.saveDimensions) {
       setEnlarge(false);
       setResize(false);
       setMargin(0);
     }
+    // else {
+    //   setDimensions({
+    //     height: openedPost?.saveDimensions?.height,
+    //     width: openedPost?.saveDimensions?.width,
+    //   });
+    // }
   }, [openedPost]);
 
-  console.log(enlarge);
-  console.log(resize);
   return (
     <Image
       width={

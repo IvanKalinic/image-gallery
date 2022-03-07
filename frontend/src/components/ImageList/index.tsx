@@ -18,24 +18,14 @@ import { PostData } from "../../types";
 import NewPost from "./NewPost";
 import { usePosts } from "../../context";
 
-const defaultValues = {
-  _id: "",
-  description: "",
-  img: "",
-  comments: [{ id: "", content: "" }],
-};
-
 const ImageList = () => {
   const [isListOpen, setIsListOpen] = useState<boolean>(true);
   const [isNewOpen, setIsNewOpen] = useState<boolean>(false);
-  const [openedPost, setOpenedPost] = useState<PostData>(defaultValues);
-  const { posts } = usePosts();
+  const { posts, openedPost, setOpenedPost } = usePosts();
 
   useEffect(() => {
-    if (posts) {
-      setOpenedPost(posts[0]);
-    }
-  }, [posts]);
+    if (posts) setOpenedPost(posts[0]);
+  }, []);
 
   const handleClose = () => {
     setIsListOpen(false);
@@ -133,11 +123,7 @@ const ImageList = () => {
             </Flex>
             <SharedList setOpenedPost={setOpenedPost} />
           </Flex>
-          <PostDetails
-            openedPost={openedPost}
-            isOpen={isNewOpen}
-            setIsOpen={setIsNewOpen}
-          />
+          <PostDetails isOpen={isNewOpen} setIsOpen={setIsNewOpen} />
         </Flex>
       )}
     </>

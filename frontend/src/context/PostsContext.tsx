@@ -1,5 +1,13 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
 import { useLocalStorage } from "../hooks";
+import { PostData } from "../types";
+
+const defaultValues = {
+  _id: "",
+  description: "",
+  img: "",
+  comments: [{ id: "", content: "" }],
+};
 
 type ContextType = {
   posts: any;
@@ -8,6 +16,8 @@ type ContextType = {
   setImage: React.Dispatch<React.SetStateAction<any>>;
   imageSize: { width: number; height: number };
   setImageSize: React.Dispatch<React.SetStateAction<any>>;
+  openedPost: PostData;
+  setOpenedPost: React.Dispatch<React.SetStateAction<PostData>>;
 };
 
 const PostsContext = createContext<ContextType>({
@@ -17,6 +27,8 @@ const PostsContext = createContext<ContextType>({
   setImage: () => null,
   imageSize: { width: 0, height: 0 },
   setImageSize: () => null,
+  openedPost: defaultValues,
+  setOpenedPost: () => null,
 });
 
 export const usePosts = () => {
@@ -35,6 +47,7 @@ interface Props {
 export const PostsProvider = ({ children }: Props) => {
   const [posts, setPosts] = useState<Array<any>>([]);
   const [image, setImage] = useState<any>(null);
+  const [openedPost, setOpenedPost] = useState<PostData>(defaultValues);
   const [imageSize, setImageSize] = useLocalStorage("imageSize", {
     height: 0,
     width: 0,
@@ -48,8 +61,19 @@ export const PostsProvider = ({ children }: Props) => {
       setImage,
       imageSize,
       setImageSize,
+      openedPost,
+      setOpenedPost,
     }),
-    [posts, setPosts, image, setImage, imageSize, setImageSize]
+    [
+      posts,
+      setPosts,
+      image,
+      setImage,
+      imageSize,
+      setImageSize,
+      openedPost,
+      setOpenedPost,
+    ]
   );
 
   return (

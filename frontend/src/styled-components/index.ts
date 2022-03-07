@@ -10,6 +10,7 @@ export const FixedNavbarWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 50;
 `;
 
 export const LoginNavbarWrapper = styled.div`
@@ -121,4 +122,18 @@ export const PersonContainer = styled.span`
   align-items: center;
   cursor: pointer;
   margin-right: 0.5rem;
+`;
+
+export const BasicCircle = styled.span`
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: 0.125rem solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: ${navbarColor};
+  margin-right: 0.25rem;
+  z-index: 999;
 `;

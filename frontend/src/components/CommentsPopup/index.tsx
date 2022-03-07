@@ -26,26 +26,31 @@ import { PostData } from "../../types";
 import Comment from "../Comment";
 import CommentImage from "../CommentImage";
 import { v4 as uuidv4 } from "uuid";
-import { useAddComment, useDeleteComment } from "../../hooks";
+import {
+  useAddComment,
+  useDeleteComment,
+  useEditComment,
+  useGetPost,
+} from "../../hooks";
 import { usePosts, useUser } from "../../context";
 
 interface Props {
   openedPost: PostData;
+  setOpenedPost: React.Dispatch<React.SetStateAction<PostData>>;
 }
 
-const CommentsPopup = ({ openedPost }: Props) => {
+const CommentsPopup = ({ openedPost, setOpenedPost }: Props) => {
   const [openComments, setOpenComments] = useState<boolean>(false);
   const [firstElementPosition, setFirstElementPosition] = useState<number>(0);
   const [resize, setResize] = useState<boolean>(false);
   const [enlarge, setEnlarge] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
-  // const [postAdded, setPostAdded] = useState<boolean>(false);
 
-  // const queryClient = useQueryClient();
   const { user } = useUser();
   const { setImageSize } = usePosts();
+  const { data } = useGetPost(openedPost?._id);
   const addComent = useAddComment(openedPost?._id);
-  const deleteComment = useDeleteComment();
+  const editComment = useEditComment(openedPost?._id);
 
   useEffect(() => {
     if (firstElementPosition > 0 && firstElementPosition < 450) {
@@ -72,8 +77,6 @@ const CommentsPopup = ({ openedPost }: Props) => {
         await addComent.mutate(comment, {
           onSuccess: () => {
             setInputValue("");
-            // setPostAdded(true);
-            // await queryClient.invalidateQueries("fetchPosts");
           },
         });
       } catch (err) {
@@ -82,23 +85,29 @@ const CommentsPopup = ({ openedPost }: Props) => {
     }
   };
 
-  const handleDeleteComment = async () => {
+  const handleEditComment = async (comment: any) => {
     try {
-      await deleteComment.mutate(openedPost._id, {
-        onSuccess: () => {
-          setEnlarge(true);
-        },
-      });
+      await editComment.mutate(comment);
     } catch (err) {
       console.log(err);
     }
   };
+
+  const handleChange = (e: any) => {
+    e.preventDefault();
+    setInputValue(e.target.value);
+  };
+
+  useEffect(() => {
+    if (data) setOpenedPost(data);
+  }, [data]);
 
   return (
     <Popover
       placement="top-start"
       isOpen={openComments}
       onClose={() => setOpenComments(false)}
+      closeOnBlur={false}
     >
       <PopoverTrigger>
         <Circle>
@@ -150,16 +159,19 @@ const CommentsPopup = ({ openedPost }: Props) => {
               bottom="3rem"
               overflow="visible"
             >
-              {openedPost?.comments &&
-                openedPost?.comments?.map((comment: any, index: number) => (
-                  <Comment
-                    setFirstElementPosition={setFirstElementPosition}
-                    content={comment.content}
-                    key={comment?.id}
-                    createdBy={comment?.createdBy}
-                    index={index}
-                  />
-                ))}
+              {openedPost?.comments?.map((comment: any, index: number) => (
+                <Comment
+                  setFirstElementPosition={setFirstElementPosition}
+                  content={comment.content}
+                  comment={comment}
+                  key={comment?.id}
+                  createdBy={comment?.createdBy}
+                  index={index}
+                  setEnlarge={setEnlarge}
+                  setResize={setResize}
+                  handleEdit={handleEditComment}
+                />
+              ))}
             </Flex>
           </Flex>
         </PopoverBody>
@@ -176,7 +188,7 @@ const CommentsPopup = ({ openedPost }: Props) => {
                 paddingLeft: "1rem",
               }}
               value={inputValue}
-              onChange={(e: any) => setInputValue(e.target.value)}
+              onChange={handleChange}
             />
             <AddComent
               style={{ cursor: "pointer" }}

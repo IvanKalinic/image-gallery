@@ -46,7 +46,7 @@ const Gallery = () => {
           <Text textTransform="uppercase" mr="1rem">
             {user.email.split("@")[0]}
           </Text>
-          <Popover>
+          <Popover placement="left-start">
             <PopoverTrigger>
               <ChevronDownIcon
                 width="2rem"
@@ -60,7 +60,6 @@ const Gallery = () => {
               <PopoverArrow />
               <PopoverCloseButton />
               <PopoverHeader>Logout?</PopoverHeader>
-
               <PopoverFooter>
                 <ButtonGroup
                   cursor="pointer"

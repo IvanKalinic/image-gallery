@@ -11,7 +11,7 @@ export const useAddComment = (id: string) => {
 
   return useMutation(addComment, {
     onSuccess: async () => {
-      await queryClient.invalidateQueries(["fetchPosts"]);
+      await queryClient.invalidateQueries(["fetchPost", id]);
     },
     onError: (error) => console.log(error),
   });

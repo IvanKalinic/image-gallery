@@ -1,38 +1,31 @@
-import { CloseIcon, EditIcon, SmallCloseIcon } from "@chakra-ui/icons";
-import {
-  Flex,
-  Image,
-  Text,
-  useDisclosure,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { Comments } from "../../../assets/svg";
+import { EditIcon } from "@chakra-ui/icons";
+import { Flex, Image, Text } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { useQueryClient } from "react-query";
 import { usePosts } from "../../../context";
-
-import { PostData } from "../../../types";
 import CommentsPopup from "../../CommentsPopup";
 import NewPost from "../NewPost";
 
 interface Props {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  openedPost: PostData;
 }
-const PostDetails = ({ isOpen, setIsOpen, openedPost }: Props) => {
-  const { posts } = usePosts();
+const PostDetails = ({ isOpen, setIsOpen }: Props) => {
+  const { posts, openedPost, setOpenedPost } = usePosts();
+  const queryClient = useQueryClient();
 
   const handleEdit = () => {
     //logic for editing post
   };
+
+  useEffect(() => {
+    const fetchFirstPost = async () => {
+      if (!posts) await queryClient.invalidateQueries("fetchPosts");
+      console.log(posts);
+      setOpenedPost(posts[0]);
+    };
+    fetchFirstPost();
+  }, [posts]);
 
   return (
     <Flex
@@ -65,8 +58,10 @@ const PostDetails = ({ isOpen, setIsOpen, openedPost }: Props) => {
           <Text fontSize="2rem" fontWeight="700" mt="2rem">
             {openedPost?.description}
           </Text>
-
-          <CommentsPopup openedPost={openedPost} />
+          <CommentsPopup
+            openedPost={openedPost}
+            setOpenedPost={setOpenedPost}
+          />
         </>
       ) : (
         <NewPost isOpen={isOpen} setIsOpen={setIsOpen} />
